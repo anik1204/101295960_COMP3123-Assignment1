@@ -27,6 +27,6 @@ app.use(bodyParser.json());
 app.use('/api/user', userController);
 app.use('/api/employees', employeeController);
 
-app.listen(SERVER_PORT, () => {
+app.listen(SERVER_PORT || process.env.PORT, () => {
     console.log("Server Running at http://localhost:%s", SERVER_PORT);
 });
