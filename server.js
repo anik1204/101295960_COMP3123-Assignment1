@@ -9,7 +9,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Users = mongoose.model("userSchema");
 const SERVER_PORT = 8088;
-
+const app = express();
+app.use(cors({
+    origin: '*'
+}));
 mongoose.connect(
     `mongodb+srv://dbuser:test123@comp3123assignment1.vlkxr3c.mongodb.net/?retryWrites=true&w=majority`, 
     {
@@ -17,8 +20,7 @@ mongoose.connect(
       useUnifiedTopology: true
     }
   );
-  const app = express();
-app.use(cors({ credentials: true }))
+
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
