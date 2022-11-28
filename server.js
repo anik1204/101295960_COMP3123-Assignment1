@@ -19,8 +19,11 @@ mongoose.connect(
   );
   const app = express();
  app.use(cors({
-    origin: ['https://101295960-comp-3123-assignment2.vercel.app/']
+    origin: '*'
 }));
+app.use(function(req, res, next) {
+   res.header("Access-Control-Allow-Origin", "*");
+}
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
