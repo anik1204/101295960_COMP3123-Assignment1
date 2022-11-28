@@ -18,12 +18,7 @@ mongoose.connect(
     }
   );
   const app = express();
- app.use(cors({
-    origin: '*'
-}));
-app.use(function(req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
-}
+app.use(cors());
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
