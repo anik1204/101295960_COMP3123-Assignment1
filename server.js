@@ -18,8 +18,8 @@ mongoose.connect(
     }
   );
   const app = express();
-  app.use(cors({
-    origin: '*'
+ app.use(cors({
+    origin: ['https://101295960-comp-3123-assignment2.vercel.app/']
 }));
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
