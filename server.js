@@ -18,7 +18,16 @@ mongoose.connect(
     }
   );
   const app = express();
-app.use(cors());
+ app.use(cors({
+    origin: ['https://101295960-comp-3123-assignment2.vercel.app/']
+}));
+app.use(function(req, res, next) {
+   res.setHeader('Access-Control-Allow-Origin', req.header('origin') 
+|| req.header('x-forwarded-host') || req.header('referer') || req.header('host'));
+
+res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+}
+
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
