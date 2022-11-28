@@ -18,10 +18,7 @@ mongoose.connect(
     }
   );
   const app = express();
-app.use(cors({
-    origin: '*'
-}));
-
+app.use(cors({ credentials: true }))
 // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
