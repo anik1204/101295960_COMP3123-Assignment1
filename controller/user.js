@@ -3,6 +3,8 @@ const User = require("../model/user.js");
 const Users = mongoose.model("userSchema");
 const express = require("express");
 const router = express.Router();
+const cors = require("cors");
+router.use(cors());
 
 async function getPass(cred,type="username"){
     return new Promise((res, rej) => { 
@@ -16,24 +18,29 @@ async function getPass(cred,type="username"){
 
 
 router.post('/signup', async (req,res) => {
-    const { username, email, password } = req.body;
-    let ifUsernameExists = await Users.findOne({ username }).count();
-    let ifEmailExists = await Users.findOne({ email }).count();
-    if(ifUsernameExists==0 && ifEmailExists==0){
-        const user = new Users();
-        user.username = username;
-        user.password = password;
-        user.email = email;
-        user.save((err, doc) => {
-            if(!err){
-                res.status(201).send({message: "Signed up successfully User: "+username+" Email: "+email});
-            }
-            else res.send("Error during insertion: "+err);
-        })
+    let body = req.body;
+    if( "username" in body && "email" in body && "password" in body)
+    {
+        const { username, email, password } = body;
+        let ifUsernameExists = await Users.findOne({ username }).count();
+        let ifEmailExists = await Users.findOne({ email }).count();
+        if(ifUsernameExists==0 && ifEmailExists==0){
+            const user = new Users();
+            user.username = username;
+            user.password = password;
+            user.email = email;
+            user.save((err, doc) => {
+                if(!err){
+                    res.status(201).send({message: "Signed up successfully User: "+username+" Email: "+email});
+                }
+                else res.send("Error during insertion: "+err);
+            })
+        }
+        else{
+            res.status(200).send({message: "Username/Email already in use."})
+        }
     }
-    else{
-        res.status(200).send({message: "Username/Email already in use."})
-    }
+    else res.send("Please include all the necessary infromation { username, email, password }");
 });
 
 router.post('/login', async (req,res) => {
