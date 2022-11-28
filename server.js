@@ -10,9 +10,7 @@ const cors = require('cors');
 const Users = mongoose.model("userSchema");
 const SERVER_PORT = 8088;
 const app = express();
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors());
 mongoose.connect(
     `mongodb+srv://dbuser:test123@comp3123assignment1.vlkxr3c.mongodb.net/?retryWrites=true&w=majority`, 
     {
